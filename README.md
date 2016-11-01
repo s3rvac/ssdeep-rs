@@ -10,7 +10,9 @@ fuzzy hashes, CTPH can match inputs that have homologies. Such inputs have
 sequences of identical bytes in the same order, although bytes in between these
 sequences may be different in both content and length. In contrast to standard
 hashing algorithms, CTPH can be used to identify files that are highly similar
-but not identical.
+but not identical. See [my blog
+post](https://blog.petrzemek.net/2016/11/01/computing-context-triggered-piecewise-hashes-in-rust/)
+for more details.
 
 Usage
 -----
