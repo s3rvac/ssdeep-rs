@@ -1,0 +1,19 @@
+[package]
+name = "libfuzzy-sys"
+version = "0.1.0"
+authors = ["Petr Zemek <s3rvac@gmail.com>"]
+description = "Native bindings to the libfuzzy library"
+repository = "https://github.com/s3rvac/ssdeep-rs"
+license = "GPLv3"
+build = "build.rs"
+links = "libfuzzy"
+
+[lib]
+name = "libfuzzy_sys"
+path = "lib.rs"
+
+[dependencies]
+libc = "0.2.17"
+
+[build-dependencies]
+gcc = "0.3.38"
