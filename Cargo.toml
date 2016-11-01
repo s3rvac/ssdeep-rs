@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Petr Zemek <s3rvac@gmail.com>"]
 description = "A Rust wrapper for ssdeep"
 repository = "https://github.com/s3rvac/ssdeep-rs"
-license = "GPLv3"
+license = "GPL-3.0+"
 
 [dependencies]
 libc = "0.2.17"
