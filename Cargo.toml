@@ -3,6 +3,7 @@ name = "ssdeep"
 version = "0.1.0"
 authors = ["Petr Zemek <s3rvac@gmail.com>"]
 description = "A Rust wrapper for ssdeep"
+homepage = "https://github.com/s3rvac/ssdeep-rs"
 repository = "https://github.com/s3rvac/ssdeep-rs"
 documentation = "https://projects.petrzemek.net/ssdeep-rs/doc/"
 keywords = ["ssdeep", "fuzzy", "hash"]

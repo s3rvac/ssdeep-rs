@@ -3,6 +3,7 @@ name = "libfuzzy-sys"
 version = "0.1.0"
 authors = ["Petr Zemek <s3rvac@gmail.com>"]
 description = "Native bindings to the libfuzzy library"
+homepage = "https://github.com/s3rvac/ssdeep-rs"
 repository = "https://github.com/s3rvac/ssdeep-rs"
 license = "GPL-3.0+"
 build = "build.rs"
