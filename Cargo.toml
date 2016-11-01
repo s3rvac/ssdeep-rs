@@ -5,6 +5,7 @@ authors = ["Petr Zemek <s3rvac@gmail.com>"]
 description = "A Rust wrapper for ssdeep"
 repository = "https://github.com/s3rvac/ssdeep-rs"
 documentation = "https://projects.petrzemek.net/ssdeep-rs/doc/"
+keywords = ["ssdeep", "fuzzy", "hash"]
 license = "GPL-3.0+"
 
 [dependencies]
