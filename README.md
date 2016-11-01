@@ -1,6 +1,8 @@
 Rust Wrapper for ssdeep
 =======================
 
+[![crates.io](https://img.shields.io/crates/v/ssdeep.svg)](https://crates.io/crates/ssdeep)
+
 A Rust wrapper for [ssdeep by Jesse Kornblum](http://ssdeep.sourceforge.net/),
 which is a C library for computing [context triggered piecewise
 hashes](http://dfrws.org/2006/proceedings/12-Kornblum.pdf) (CTPH). Also called
