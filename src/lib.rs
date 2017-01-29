@@ -55,7 +55,7 @@
 //! assert_eq!(score, 22);
 //! ```
 //!
-//! Each of these functions return an
+//! Each of these functions returns an
 //! [`Option`](https://doc.rust-lang.org/std/option/enum.Option.html), where
 //! `None` is returned when the underlying C function fails.
 
