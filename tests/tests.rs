@@ -26,42 +26,42 @@ use ssdeep::hash_from_file;
 //
 
 #[test]
-fn test_compare_returns_one_hundred_score_when_hashes_are_equal() {
+fn compare_returns_one_hundred_score_when_hashes_are_equal() {
     let h1 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
     let h2 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
     assert_eq!(compare(h1, h2), Some(100));
 }
 
 #[test]
-fn test_compare_returns_nonzero_score_when_hashes_are_similar() {
+fn compare_returns_nonzero_score_when_hashes_are_similar() {
     let h1 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
     let h2 = b"3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
     assert_eq!(compare(h1, h2), Some(22));
 }
 
 #[test]
-fn test_compare_returns_zero_when_hashes_are_not_similar() {
+fn compare_returns_zero_when_hashes_are_not_similar() {
     let h1 = b"3:u+N:u+N";
     let h2 = b"3:OWIXTn:OWQ";
     assert_eq!(compare(h1, h2), Some(0));
 }
 
 #[test]
-fn test_compare_returns_none_when_hash_is_invalid() {
+fn compare_returns_none_when_hash_is_invalid() {
     let h1 = b"XYZ";
     let h2 = b"3:tc:u";
     assert_eq!(compare(h1, h2), None);
 }
 
 #[test]
-fn test_compare_accepts_strs_as_bytes() {
+fn compare_accepts_strs_as_bytes() {
     let h1 = "3:OWR:OWR";
     let h2 = "3:OWR:OWR";
     assert_eq!(compare(h1.as_bytes(), h2.as_bytes()), Some(100));
 }
 
 #[test]
-fn test_compare_accepts_strings_as_bytes() {
+fn compare_accepts_strings_as_bytes() {
     let h1 = "3:OWR:OWR".to_string();
     let h2 = "3:OWR:OWR".to_string();
     assert_eq!(compare(h1.as_bytes(), h2.as_bytes()), Some(100));
@@ -72,19 +72,19 @@ fn test_compare_accepts_strings_as_bytes() {
 //
 
 #[test]
-fn test_hash_returns_correct_hash() {
+fn hash_returns_correct_hash() {
     let h = hash(b"Hello there!").unwrap();
     assert_eq!(h, "3:aNRn:aNRn");
 }
 
 #[test]
-fn test_hash_accepts_str_as_bytes() {
+fn hash_accepts_str_as_bytes() {
     let h = hash("Hello there!".as_bytes()).unwrap();
     assert_eq!(h, "3:aNRn:aNRn");
 }
 
 #[test]
-fn test_hash_accepts_string_as_bytes() {
+fn hash_accepts_string_as_bytes() {
     let h = hash("Hello there!".to_string().as_bytes()).unwrap();
     assert_eq!(h, "3:aNRn:aNRn");
 }
@@ -94,7 +94,7 @@ fn test_hash_accepts_string_as_bytes() {
 //
 
 #[test]
-fn test_hash_from_file_returns_correct_hash() {
+fn hash_from_file_returns_correct_hash() {
     let h = hash_from_file("tests/file.txt").unwrap();
     assert_eq!(
         h,
