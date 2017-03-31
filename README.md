@@ -71,8 +71,8 @@ Documentation
 
 An automatically generated API documentation is available here:
 
-* [latest](https://projects.petrzemek.net/ssdeep-rs/doc/latest/ssdeep/)
-* [0.1.0](https://projects.petrzemek.net/ssdeep-rs/doc/0.1.0/ssdeep/)
+* [latest](https://docs.rs/ssdeep/)
+* [0.1.0](https://docs.rs/ssdeep/0.1.0/ssdeep/)
 
 License
 -------
