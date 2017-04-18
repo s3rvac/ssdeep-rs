@@ -29,7 +29,7 @@
 //! -----
 //!
 //! To compute the fuzzy hash of a given buffer, use
-//! [`ssdeep::hash()`](fn.hash.html):
+//! [`hash()`](fn.hash.html):
 //!
 //! ```
 //! extern crate ssdeep;
