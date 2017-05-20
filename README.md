@@ -1,6 +1,7 @@
 Rust Wrapper for ssdeep
 =======================
 
+[![docs.rs](https://docs.rs/ssdeep/badge.svg)](https://docs.rs/ssdeep)
 [![crates.io](https://img.shields.io/crates/v/ssdeep.svg)](https://crates.io/crates/ssdeep)
 
 A Rust wrapper for [ssdeep by Jesse Kornblum](http://ssdeep.sourceforge.net/),
