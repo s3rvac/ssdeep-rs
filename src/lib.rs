@@ -222,9 +222,9 @@ fn result_buffer_to_string(mut result: Vec<u8>, rc: i32) -> Option<String> {
     }
 
     // Since the resulting vector that holds the fuzzy hash was populated in
-    // the ssdeep library, we have to adjust its length because at this point,
-    // the vector thinks that its length is zero. We do this by finding the
-    // first null byte.
+    // the underlying C library, we have to adjust its length because at this
+    // point, the vector thinks that its length is zero. We do this by finding
+    // the first null byte.
     unsafe {
         let mut len = 0;
         for i in 0..raw::FUZZY_MAX_RESULT {
