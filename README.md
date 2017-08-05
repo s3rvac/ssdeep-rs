@@ -78,7 +78,7 @@ An automatically generated API documentation is available here:
 License
 -------
 
-The code is licensed under the terms of GPLv3.
+The wrapper's code is licensed under the terms of GPLv3.
 
 This wrapper includes the unchanged source distribution of [ssdeep version
 2.13](http://ssdeep.sourceforge.net/changes.txt), which is compiled and
