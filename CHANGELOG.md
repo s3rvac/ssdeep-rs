@@ -4,7 +4,8 @@ Changelog
 dev
 ---
 
-* -
+* Updated the used version of the [gcc](https://crates.io/crates/gcc) crate to
+  0.3.58.
 
 0.1.0 (2016-11-01)
 ------------------
