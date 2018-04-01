@@ -146,7 +146,7 @@ pub fn compare(hash1: &[u8], hash2: &[u8]) -> Option<i8> {
 ///
 /// # Panics
 ///
-/// If the size of the buffer is strictly greater than 2^32 - 1 bytes. The
+/// If the size of the buffer is strictly greater than `2^32 - 1` bytes. The
 /// reason for this is that the corresponding function from the underlying C
 /// library accepts the length of the buffer as an unsigned 32b integer.
 ///
