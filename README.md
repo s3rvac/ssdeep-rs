@@ -4,8 +4,9 @@ Rust Wrapper for ssdeep
 [![docs.rs](https://docs.rs/ssdeep/badge.svg)](https://docs.rs/ssdeep)
 [![crates.io](https://img.shields.io/crates/v/ssdeep.svg)](https://crates.io/crates/ssdeep)
 
-A Rust wrapper for [ssdeep by Jesse Kornblum](http://ssdeep.sourceforge.net/),
-which is a C library for computing [context triggered piecewise
+A Rust wrapper for [ssdeep by Jesse
+Kornblum](https://ssdeep-project.github.io/ssdeep/), which is a C library for
+computing [context triggered piecewise
 hashes](http://dfrws.org/2006/proceedings/12-Kornblum.pdf) (CTPH). Also called
 fuzzy hashes, CTPH can match inputs that have homologies. Such inputs have
 sequences of identical bytes in the same order, although bytes in between these
@@ -81,5 +82,5 @@ License
 The wrapper's code is licensed under the terms of GPLv3.
 
 This wrapper includes the unchanged source distribution of [ssdeep version
-2.13](http://ssdeep.sourceforge.net/changes.txt), which is compiled and
+2.13](https://github.com/ssdeep-project/ssdeep/), which is compiled and
 statically linked into the wrapper during build. It is licensed under GPLv2.

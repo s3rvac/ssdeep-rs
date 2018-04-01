@@ -16,8 +16,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 //! A Rust wrapper for [ssdeep by Jesse
-//! Kornblum](http://ssdeep.sourceforge.net/), which is a C library for
-//! computing [context triggered piecewise
+//! Kornblum](https://ssdeep-project.github.io/ssdeep/), which is a C library
+//! for computing [context triggered piecewise
 //! hashes](http://dfrws.org/2006/proceedings/12-Kornblum.pdf) (CTPH). Also
 //! called fuzzy hashes, CTPH can match inputs that have homologies. Such
 //! inputs have sequences of identical bytes in the same order, although bytes
