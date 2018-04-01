@@ -24,7 +24,7 @@ use std::path::PathBuf;
 use std::process::Command;
 
 fn main() {
-    let cfg = gcc::Config::new();
+    let cfg = gcc::Build::new();
     let compiler = cfg.get_compiler();
     let src = env::current_dir().unwrap();
     let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());
