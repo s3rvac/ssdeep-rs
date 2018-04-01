@@ -4,6 +4,11 @@ Changelog
 dev
 ---
 
+* -
+
+0.2.0 (2018-04-01)
+------------------
+
 * Updated the used version of the underlying [libfuzzy
   library](https://ssdeep-project.github.io/ssdeep/) to 2.14.1.
 * Updated the used version of the [libc](https://crates.io/crates/libc) crate
