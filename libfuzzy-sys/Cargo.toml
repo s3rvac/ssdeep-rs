@@ -1,7 +1,7 @@
 [package]
 name = "libfuzzy-sys"
 version = "0.2.0"
-authors = ["Petr Zemek <s3rvac@gmail.com>"]
+authors = ["Petr Zemek <s3rvac@petrzemek.net>"]
 description = "Native bindings to the libfuzzy library"
 homepage = "https://github.com/s3rvac/ssdeep-rs"
 repository = "https://github.com/s3rvac/ssdeep-rs"
