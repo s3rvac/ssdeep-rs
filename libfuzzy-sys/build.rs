@@ -29,6 +29,9 @@ fn main() {
     let src = env::current_dir().unwrap();
     let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());
 
+    info(&format!("src dir: {}", src.display()));
+    info(&format!("dst dir: {}", dst.display()));
+
     println!("cargo:rustc-link-lib=static=fuzzy");
     println!("cargo:rustc-link-search={}/.libs", dst.display());
 
