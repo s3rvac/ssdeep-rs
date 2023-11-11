@@ -83,6 +83,7 @@ License
 
 The wrapper's code is licensed under the terms of GPLv3.
 
-This wrapper includes the unchanged source distribution of [ssdeep version
-2.13](https://github.com/ssdeep-project/ssdeep/), which is compiled and
-statically linked into the wrapper during build. It is licensed under GPLv2.
+This wrapper includes the unchanged source distribution of
+[ssdeep](https://github.com/ssdeep-project/ssdeep/) (commit `d8705da60`),
+which is compiled and statically linked into the wrapper during build. It is
+licensed under GPLv2.

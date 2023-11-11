@@ -7,6 +7,11 @@
 
 #include "main.h"
 
+// Prototypes
+off_t find_file_size(FILE *f);
+off_t find_dev_size(int fd, int blk_size);
+
+
 #ifndef _WIN32
 
 // Return the size, in bytes of an open file stream. On error, return 0 
@@ -37,7 +42,7 @@ off_t find_file_size(FILE *f)
 #else
     // If we can't run the ioctl call, we can't do anything here
     return 0;
-#endif // ifdefined _IO and BLKGETSIZE
+#endif // ifdefined _IO && BLKGETSIZE
 
 
 #if defined(_IO) && defined(BLKSSZGET)
@@ -49,7 +54,7 @@ off_t find_file_size(FILE *f)
       sector_size = 512;
 #else
     sector_size = 512;
-#endif  // ifdef _IO and BLKSSZGET
+#endif  // ifdef _IO && BLKSSZGET
 
     return (num_sectors * sector_size);
   }

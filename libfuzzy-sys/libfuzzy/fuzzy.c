@@ -23,7 +23,13 @@
  *     http://ssdeep.sf.net/
  */
 
-#include "main.h"
+#ifndef MIN
+#define MIN(a,b) ((a)<(b)?(a):(b))
+#endif
+
+#ifndef MAX
+#define MAX(a,b) ((a)>(b)?(a):(b))
+#endif
 
 #include <assert.h>
 #include <errno.h>
@@ -32,6 +38,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 
 #include "fuzzy.h"
 #include "edit_dist.h"
@@ -121,7 +128,7 @@ struct blockhash_context
   unsigned int dindex;
   char digest[SPAMSUM_LENGTH];
   char halfdigest;
-  char h, halfh;
+  unsigned char h, halfh;
 };
 
 struct fuzzy_state
@@ -583,7 +590,7 @@ out:
   if (status == 0)
   {
     if (fseeko(handle, fpos, SEEK_SET) < 0)
-      return -1;
+      status = -1;
   }
   fuzzy_free(ctx);
   return status;
@@ -609,6 +616,7 @@ int fuzzy_hash_filename(const char *filename, /*@out@*/ char *result)
 //
 // return 1 if the two strings do have a common substring, 0 otherwise
 //
+#ifndef SSDEEP_ENABLE_POSITION_ARRAY
 static int has_common_substring(const char *s1, size_t s1len, const char *s2, size_t s2len)
 {
   size_t i, j;
@@ -662,7 +670,7 @@ static int has_common_substring(const char *s1, size_t s1len, const char *s2, si
 
   return 0;
 }
-
+#endif
 
 
 #ifdef SSDEEP_ENABLE_POSITION_ARRAY
