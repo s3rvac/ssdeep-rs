@@ -44,8 +44,7 @@ fn main() {
     // shared object; recompile with -fPIC"
     cflags.push("-fPIC");
 
-    run(Command::new("sh")
-        .arg(&src.join("libfuzzy/configure"))
+    run(Command::new(&src.join("libfuzzy/configure"))
         .arg("--enable-shared=no")
         .arg("--enable-static=yes")
         .env("CFLAGS", cflags)

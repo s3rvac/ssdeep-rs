@@ -7,6 +7,7 @@ dev
 * Updated the used version of the underlying [libfuzzy
   library](https://ssdeep-project.github.io/ssdeep/) to the current `master`
   (last update: 2019-02-21).
+* The `configure` script is now executed directly instead of via `sh`.
 
 0.3.0 (2023-11-11)
 ------------------
