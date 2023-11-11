@@ -4,7 +4,8 @@ Changelog
 dev
 ---
 
-* -
+* Updated the used version of the [libc](https://crates.io/crates/libc) crate
+  to 0.2 (i.e. dropped the patch version requirement).
 
 0.2.0 (2018-04-01)
 ------------------
