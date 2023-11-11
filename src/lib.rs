@@ -121,8 +121,10 @@ pub fn compare(hash1: &[u8], hash2: &[u8]) -> Option<i8> {
     let h1 = bytes_to_cstring(hash1);
     let h2 = bytes_to_cstring(hash2);
     let score = unsafe {
-        raw::fuzzy_compare(h1.as_bytes_with_nul().as_ptr() as *const c_char,
-                           h2.as_bytes_with_nul().as_ptr() as *const c_char)
+        raw::fuzzy_compare(
+            h1.as_bytes_with_nul().as_ptr() as *const c_char,
+            h2.as_bytes_with_nul().as_ptr() as *const c_char,
+        )
     };
     if score == -1 {
         None
@@ -158,9 +160,11 @@ pub fn hash(buf: &[u8]) -> Option<String> {
 
     let mut result = create_buffer_for_result();
     let rc = unsafe {
-        raw::fuzzy_hash_buf(buf.as_ptr(),
-                            buf.len() as u32,
-                            result.as_mut_ptr() as *mut c_char)
+        raw::fuzzy_hash_buf(
+            buf.as_ptr(),
+            buf.len() as u32,
+            result.as_mut_ptr() as *mut c_char,
+        )
     };
     result_buffer_to_string(result, rc)
 }
@@ -190,8 +194,10 @@ pub fn hash_from_file<P: AsRef<Path>>(file_path: P) -> Option<String> {
     let mut result = create_buffer_for_result();
     let fp = path_as_cstring(file_path);
     let rc = unsafe {
-        raw::fuzzy_hash_filename(fp.as_bytes_with_nul().as_ptr() as *const c_char,
-                                 result.as_mut_ptr() as *mut c_char)
+        raw::fuzzy_hash_filename(
+            fp.as_bytes_with_nul().as_ptr() as *const c_char,
+            result.as_mut_ptr() as *mut c_char,
+        )
     };
     result_buffer_to_string(result, rc)
 }

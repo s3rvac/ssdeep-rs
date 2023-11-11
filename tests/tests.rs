@@ -101,4 +101,3 @@ fn hash_from_file_returns_correct_hash() {
         "48:9MABzSwnjpDeSrLp8+nagE4f3ZMvcDT0MIhqy6Ic:9XMwnjdeSHS+n5ZfScX0MJ7".to_owned()
     );
 }
-
