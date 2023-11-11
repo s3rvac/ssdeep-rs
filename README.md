@@ -55,7 +55,7 @@ Add the following lines into your `Cargo.toml` file:
 
 ```
 [dependencies]
-ssdeep = "0.2.0"
+ssdeep = "0.3.0"
 ```
 
 Then, when you run `cargo build`, it will automatically get the wrapper's
@@ -74,6 +74,7 @@ Documentation
 An automatically generated API documentation is available here:
 
 * [latest](https://docs.rs/ssdeep/)
+* [0.3.0](https://docs.rs/ssdeep/0.3.0/ssdeep/)
 * [0.2.0](https://docs.rs/ssdeep/0.2.0/ssdeep/)
 * [0.1.0](https://docs.rs/ssdeep/0.1.0/ssdeep/)
 
