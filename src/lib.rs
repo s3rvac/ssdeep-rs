@@ -63,7 +63,6 @@ extern crate libc;
 extern crate libfuzzy_sys as raw;
 
 use libc::c_char;
-use libc::uint32_t;
 use std::ffi::CString;
 use std::path::Path;
 
@@ -155,12 +154,12 @@ pub fn compare(hash1: &[u8], hash2: &[u8]) -> Option<i8> {
 /// Internally, it calls the `fuzzy_hash_buf()` function from the underlying C
 /// library. A non-zero return value is translated into `None`.
 pub fn hash(buf: &[u8]) -> Option<String> {
-    assert!(buf.len() <= uint32_t::max_value() as usize);
+    assert!(buf.len() <= u32::max_value() as usize);
 
     let mut result = create_buffer_for_result();
     let rc = unsafe {
         raw::fuzzy_hash_buf(buf.as_ptr(),
-                            buf.len() as uint32_t,
+                            buf.len() as u32,
                             result.as_mut_ptr() as *mut c_char)
     };
     result_buffer_to_string(result, rc)

@@ -4,6 +4,8 @@ Changelog
 dev
 ---
 
+* Switched from the deprecated [gcc](https://crates.io/crates/gcc) crate to
+  the [cc](https://crates.io/crates/cc) crate.
 * Updated the used version of the [libc](https://crates.io/crates/libc) crate
   to 0.2 (i.e. dropped the patch version requirement).
 

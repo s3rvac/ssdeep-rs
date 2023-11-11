@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-extern crate gcc;
+extern crate cc;
 
 use std::env;
 use std::ffi::OsString;
@@ -24,7 +24,7 @@ use std::path::PathBuf;
 use std::process::Command;
 
 fn main() {
-    let cfg = gcc::Build::new();
+    let cfg = cc::Build::new();
     let compiler = cfg.get_compiler();
     let src = env::current_dir().unwrap();
     let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());

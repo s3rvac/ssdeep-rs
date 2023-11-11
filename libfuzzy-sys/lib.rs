@@ -24,7 +24,6 @@ extern crate libc;
 use libc::c_char;
 use libc::c_int;
 use libc::c_uchar;
-use libc::uint32_t;
 
 // From fuzzy.h:
 
@@ -41,7 +40,7 @@ extern "C" {
 
     /// Computes the fuzzy hash of a buffer.
     // int fuzzy_hash_buf(const unsigned char *buf, uint32_t buf_len, char *result);
-    pub fn fuzzy_hash_buf(buf: *const c_uchar, buf_len: uint32_t, result: *mut c_char) -> c_int;
+    pub fn fuzzy_hash_buf(buf: *const c_uchar, buf_len: u32, result: *mut c_char) -> c_int;
 
     /// Computes the fuzzy hash of a file.
     // int fuzzy_hash_filename(const char *filename, char *result);
