@@ -8,6 +8,7 @@ dev
   library](https://ssdeep-project.github.io/ssdeep/) to the current `master`
   (last update: 2019-02-21).
 * The `configure` script is now executed directly instead of via `sh`.
+* Improved the obtaining of the source directory when building `libfuzzy`.
 
 0.3.0 (2023-11-11)
 ------------------

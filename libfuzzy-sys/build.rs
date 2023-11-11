@@ -26,7 +26,7 @@ use std::process::Command;
 fn main() {
     let cfg = cc::Build::new();
     let compiler = cfg.get_compiler();
-    let src = env::current_dir().unwrap();
+    let src = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
     let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());
 
     info(&format!("src dir: {}", src.display()));
