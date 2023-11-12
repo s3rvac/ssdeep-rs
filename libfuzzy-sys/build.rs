@@ -55,6 +55,17 @@ fn main() {
 
     run(Command::new("make")
         .arg(&format!("-j{}", env::var("NUM_JOBS").unwrap()))
+        // We do not want `make` to rebuild any autotools-related files, which
+        // might happen if the file timestamps get messed up (this can happen
+        // when using Git). Since the upstream configure script from ssdeep is
+        // old and does not support AM_MAINTAINER_MODE (or parameters
+        // --enable-maintainer-mode/--disable-maintainer-mode), we need to use
+        // a workaround based on https://stackoverflow.com/a/5745366/2580955.
+        // This fixes `aclocal-1.15: command not found` errors during the build.
+        .arg("AUTOCONF=:")
+        .arg("AUTOHEADER=:")
+        .arg("AUTOMAKE=: ")
+        .arg("ACLOCAL=:")
         .current_dir(&dst));
 }
 

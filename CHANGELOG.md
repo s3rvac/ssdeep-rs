@@ -10,6 +10,8 @@ dev
 * The `configure` script is now executed directly instead of via `sh` when
   building `libfuzzy`.
 * Improved the obtaining of the source directory when building `libfuzzy`.
+* Added a workaround for forcing `make` not to rebuild any autotools-related
+  files when building `libfuzzy`.
 
 0.3.0 (2023-11-11)
 ------------------
