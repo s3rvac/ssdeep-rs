@@ -38,7 +38,7 @@
 //! assert_eq!(h, "3:aNRn:aNRn");
 //! ```
 //!
-//! If you want to obtain the fuzzy hash of a file, you can use
+//! To obtain the fuzzy hash of a file, use
 //! [`hash_from_file()`](fn.hash_from_file.html):
 //!
 //! ```

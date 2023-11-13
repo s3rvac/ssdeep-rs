@@ -42,7 +42,7 @@ let h = ssdeep::hash(b"Hello there!").unwrap();
 assert_eq!(h, "3:aNRn:aNRn");
 ```
 
-If you want to obtain the fuzzy hash of a file, use `hash_from_file()`:
+To obtain the fuzzy hash of a file, use `hash_from_file()`:
 ```rust
 let h = ssdeep::hash_from_file("path/to/file").unwrap();
 ```
