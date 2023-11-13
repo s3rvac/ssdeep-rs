@@ -51,8 +51,8 @@ To compare two fuzzy hashes, use `compare()`, which returns an integer between
 0 (no match) and 100:
 
 ```rust
-let h1 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
-let h2 = b"3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
+let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
+let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
 let score = ssdeep::compare(h1, h2).unwrap();
 assert_eq!(score, 22);
 ```

@@ -49,8 +49,8 @@
 //! returns an integer between 0 (no match) and 100:
 //!
 //! ```
-//! let h1 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
-//! let h2 = b"3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
+//! let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
+//! let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
 //! let score = ssdeep::compare(h1, h2).unwrap();
 //! assert_eq!(score, 22);
 //! ```
@@ -77,32 +77,32 @@ use std::path::Path;
 /// When the hashes are identical, it returns 100:
 ///
 /// ```
-/// let h1 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
-/// let h2 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
+/// let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
+/// let h2 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
 /// assert_eq!(ssdeep::compare(h1, h2), Some(100));
 /// ```
 ///
 /// When the hashes are similar, it returns a positive integer:
 ///
 /// ```
-/// let h1 = b"3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
-/// let h2 = b"3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
+/// let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
+/// let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
 /// assert_eq!(ssdeep::compare(h1, h2), Some(22));
 /// ```
 ///
 /// When the hashes have no similarity at all, it returns zero:
 ///
 /// ```
-/// let h1 = b"3:u+N:u+N";
-/// let h2 = b"3:OWIXTn:OWQ";
+/// let h1 = "3:u+N:u+N";
+/// let h2 = "3:OWIXTn:OWQ";
 /// assert_eq!(ssdeep::compare(h1, h2), Some(0));
 /// ```
 ///
 /// When either of the hashes is invalid, it returns `None`:
 ///
 /// ```
-/// let h1 = b"XYZ";
-/// let h2 = b"3:tc:u";
+/// let h1 = "XYZ";
+/// let h2 = "3:tc:u";
 /// assert_eq!(ssdeep::compare(h1, h2), None);
 /// ```
 ///
@@ -117,9 +117,9 @@ use std::path::Path;
 ///
 /// Internally, it calls the `fuzzy_compare()` function from the underlying C
 /// library. The return value `-1` is translated into `None`.
-pub fn compare(hash1: &[u8], hash2: &[u8]) -> Option<i8> {
-    let h1 = bytes_to_cstring(hash1);
-    let h2 = bytes_to_cstring(hash2);
+pub fn compare(hash1: &str, hash2: &str) -> Option<i8> {
+    let h1 = str_to_cstring(hash1);
+    let h2 = str_to_cstring(hash2);
     let score = unsafe {
         raw::fuzzy_compare(
             h1.as_bytes_with_nul().as_ptr() as *const c_char,
@@ -183,7 +183,7 @@ pub fn hash(buf: &[u8]) -> Option<String> {
 ///
 /// # Panics
 ///
-/// If the path to the file cannot be converted into bytes or it contains a
+/// If the path to the file cannot be converted into a string or it contains a
 /// null byte.
 ///
 /// # Implementation details
@@ -205,10 +205,10 @@ pub fn hash_from_file<P: AsRef<Path>>(file_path: P) -> Option<String> {
 fn path_as_cstring<P: AsRef<Path>>(path: P) -> CString {
     // We can unwrap() the result because if the path cannot be converted into
     // a string, we panic, as documented in functions that call this function.
-    bytes_to_cstring(path.as_ref().to_str().unwrap().as_bytes())
+    str_to_cstring(path.as_ref().to_str().unwrap())
 }
 
-fn bytes_to_cstring(s: &[u8]) -> CString {
+fn str_to_cstring(s: &str) -> CString {
     // We can unwrap() the result because if there is a null byte, we panic, as
     // documented in functions that call this function.
     CString::new(s).unwrap()

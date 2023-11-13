@@ -2,7 +2,8 @@
 
 ## dev
 
-* -
+* `compare()` now accepts `&str` instead of `&[u8]` as `hash()` returns
+  `String`, not bytes. This simplifies and unifies the library interface.
 
 ## 0.4.0 (2023-11-12)
 
