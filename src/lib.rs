@@ -28,7 +28,7 @@
 //! Usage
 //! -----
 //!
-//! To compute the fuzzy hash of a given buffer, use
+//! To compute the fuzzy hash of given bytes, use
 //! [`hash()`](fn.hash.html):
 //!
 //! ```
@@ -133,10 +133,10 @@ pub fn compare(hash1: &str, hash2: &str) -> Option<i8> {
     }
 }
 
-/// Computes the fuzzy hash of a buffer.
+/// Computes the fuzzy hash of bytes
 ///
-/// Returns the fuzzy hash of the given buffer. When an error occurs, it
-/// returns `None`.
+/// Returns the fuzzy hash of the given bytes. When an error occurs, it returns
+/// `None`.
 ///
 /// # Examples
 ///
@@ -147,9 +147,9 @@ pub fn compare(hash1: &str, hash2: &str) -> Option<i8> {
 ///
 /// # Panics
 ///
-/// If the size of the buffer is strictly greater than `2^32 - 1` bytes. The
+/// If the length of the bytes is strictly greater than `2^32 - 1` bytes. The
 /// reason for this is that the corresponding function from the underlying C
-/// library accepts the length of the buffer as an unsigned 32b integer.
+/// library accepts the length of the input buffer as an unsigned 32b integer.
 ///
 /// # Implementation details
 ///

@@ -34,7 +34,7 @@ issue](https://github.com/s3rvac/ssdeep-rs/issues).
 
 ## Usage
 
-To compute the fuzzy hash of a given buffer, use the `hash()` function:
+To compute the fuzzy hash of given bytes, use the `hash()` function:
 ```rust
 extern crate ssdeep;
 
