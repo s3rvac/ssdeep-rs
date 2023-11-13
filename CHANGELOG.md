@@ -2,6 +2,10 @@
 
 ## dev
 
+* -
+
+## 0.5.0 (2023-11-13)
+
 * The `hash()`, `hash_from_file()`, and `compare()` functions now return a
   `Result` instead of `Option`
   ([#4](https://github.com/s3rvac/ssdeep-rs/issues/4)).
