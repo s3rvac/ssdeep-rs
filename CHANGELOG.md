@@ -3,7 +3,8 @@
 ## dev
 
 * The `hash()`, `hash_from_file()`, and `compare()` functions now return a
-  `Result` instead of `Option`.
+  `Result` instead of `Option`
+  ([#4](https://github.com/s3rvac/ssdeep-rs/issues/4)).
 * `compare()` now accepts `&str` instead of `&[u8]` as `hash()` returns
   `String`, not bytes. This simplifies and unifies the library interface.
 
@@ -14,7 +15,8 @@
   (last update: 2019-02-21).
 * The `configure` script is now executed directly instead of via `sh` when
   building `libfuzzy`.
-* Improved the obtaining of the source directory when building `libfuzzy`.
+* Improved the obtaining of the source directory when building `libfuzzy`
+  ([#3](https://github.com/s3rvac/ssdeep-rs/issues/3)).
 * Added a workaround for forcing `make` not to rebuild any autotools-related
   files when building `libfuzzy`.
 
