@@ -28,9 +28,8 @@
 //! Usage
 //! -----
 //!
-//! To compute the fuzzy hash of given bytes, use
+//! To compute the fuzzy hash of the given bytes, use
 //! [`hash()`](fn.hash.html):
-//!
 //! ```
 //! extern crate ssdeep;
 //!
@@ -38,16 +37,14 @@
 //! assert_eq!(h, "3:aNRn:aNRn");
 //! ```
 //!
-//! To obtain the fuzzy hash of a file, use
+//! To obtain the fuzzy hash of the contents of a file, use
 //! [`hash_from_file()`](fn.hash_from_file.html):
-//!
 //! ```
 //! let h = ssdeep::hash_from_file("tests/file.txt").unwrap();
 //! ```
 //!
 //! To compare two fuzzy hashes, use [`compare()`](fn.compare.html), which
 //! returns an integer between 0 (no match) and 100:
-//!
 //! ```
 //! let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
 //! let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
@@ -55,55 +52,91 @@
 //! assert_eq!(score, 22);
 //! ```
 //!
-//! Each of these functions returns an
-//! [`Option`](https://doc.rust-lang.org/std/option/enum.Option.html), where
-//! `None` is returned when the underlying C function fails.
+//! Each of these functions returns a
+//! [`Result`](https://doc.rust-lang.org/std/result/enum.Result.html), where an
+//! error is returned when the underlying C function fails.
 
 extern crate libc;
 extern crate libfuzzy_sys as raw;
 
 use libc::c_char;
+use std::error;
 use std::ffi::CString;
+use std::fmt;
 use std::path::Path;
+
+/// An enum containing errors that the library might return.
+#[derive(Debug, PartialEq)]
+pub enum Error {
+    /// Error returned when a function from the underlying C library fails.
+    CFunctionFailed {
+        /// Name of the C function.
+        name: String,
+        /// Return code of the function.
+        return_code: i32,
+    },
+}
+
+impl error::Error for Error {}
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Error::CFunctionFailed { name, return_code } => {
+                write!(
+                    f,
+                    "ssdeep C function {}() failed with return code {}",
+                    name, return_code
+                )
+            }
+        }
+    }
+}
+
+/// The result type used by the library.
+pub type Result<T> = std::result::Result<T, Error>;
 
 /// Computes the match score between two fuzzy hashes.
 ///
 /// Returns a value from 0 to 100 indicating the match score of the two hashes.
 /// A match score of zero indicates that the hashes did not match. When an
-/// error occurs, it returns `None`.
+/// error occurs, it returns [`Error`](enum.Error.html).
 ///
 /// # Examples
 ///
 /// When the hashes are identical, it returns 100:
-///
 /// ```
 /// let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
 /// let h2 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
-/// assert_eq!(ssdeep::compare(h1, h2), Some(100));
+/// assert_eq!(ssdeep::compare(h1, h2), Ok(100));
 /// ```
 ///
 /// When the hashes are similar, it returns a positive integer:
-///
 /// ```
 /// let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
 /// let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
-/// assert_eq!(ssdeep::compare(h1, h2), Some(22));
+/// assert_eq!(ssdeep::compare(h1, h2), Ok(22));
 /// ```
 ///
 /// When the hashes have no similarity at all, it returns zero:
-///
 /// ```
 /// let h1 = "3:u+N:u+N";
 /// let h2 = "3:OWIXTn:OWQ";
-/// assert_eq!(ssdeep::compare(h1, h2), Some(0));
+/// assert_eq!(ssdeep::compare(h1, h2), Ok(0));
 /// ```
 ///
-/// When either of the hashes is invalid, it returns `None`:
-///
+/// When either of the hashes is invalid, it returns an error:
 /// ```
 /// let h1 = "XYZ";
 /// let h2 = "3:tc:u";
-/// assert_eq!(ssdeep::compare(h1, h2), None);
+/// assert_eq!(
+///     ssdeep::compare(h1, h2),
+///     Err(ssdeep::Error::CFunctionFailed {
+///         name: "fuzzy_compare".to_string(),
+///         return_code: -1,
+///     })
+/// );
+///
 /// ```
 ///
 /// # Panics
@@ -116,8 +149,9 @@ use std::path::Path;
 /// # Implementation details
 ///
 /// Internally, it calls the `fuzzy_compare()` function from the underlying C
-/// library. The return value `-1` is translated into `None`.
-pub fn compare(hash1: &str, hash2: &str) -> Option<i8> {
+/// library. The return value `-1` is translated into
+/// [`Error`](enum.Error.html).
+pub fn compare(hash1: &str, hash2: &str) -> Result<i8> {
     let h1 = str_to_cstring(hash1);
     let h2 = str_to_cstring(hash2);
     let score = unsafe {
@@ -127,16 +161,19 @@ pub fn compare(hash1: &str, hash2: &str) -> Option<i8> {
         )
     };
     if score == -1 {
-        None
+        Err(Error::CFunctionFailed {
+            name: "fuzzy_compare".to_string(),
+            return_code: -1,
+        })
     } else {
-        Some(score as i8)
+        Ok(score as i8)
     }
 }
 
-/// Computes the fuzzy hash of bytes
+/// Computes the fuzzy hash of bytes.
 ///
 /// Returns the fuzzy hash of the given bytes. When an error occurs, it returns
-/// `None`.
+/// [`Error`](enum.Error.html).
 ///
 /// # Examples
 ///
@@ -147,15 +184,19 @@ pub fn compare(hash1: &str, hash2: &str) -> Option<i8> {
 ///
 /// # Panics
 ///
-/// If the length of the bytes is strictly greater than `2^32 - 1` bytes. The
-/// reason for this is that the corresponding function from the underlying C
-/// library accepts the length of the input buffer as an unsigned 32b integer.
+/// * If the length of the bytes is strictly greater than `2^32 - 1` bytes. The
+///   reason for this is that the corresponding function from the underlying C
+///   library accepts the length of the input buffer as an unsigned 32b
+///   integer.
+/// * If the function from the underyling C library provides a non-ASCII hash.
+///   This would be a bug in the C library.
 ///
 /// # Implementation details
 ///
 /// Internally, it calls the `fuzzy_hash_buf()` function from the underlying C
-/// library. A non-zero return value is translated into `None`.
-pub fn hash(buf: &[u8]) -> Option<String> {
+/// library. A non-zero return value is translated into
+/// [`Error`](enum.Error.html).
+pub fn hash(buf: &[u8]) -> Result<String> {
     assert!(buf.len() <= u32::max_value() as usize);
 
     let mut result = create_buffer_for_result();
@@ -166,13 +207,13 @@ pub fn hash(buf: &[u8]) -> Option<String> {
             result.as_mut_ptr() as *mut c_char,
         )
     };
-    result_buffer_to_string(result, rc)
+    result_buffer_to_string("fuzzy_hash_buf", result, rc)
 }
 
-/// Computes the fuzzy hash of a file.
+/// Computes the fuzzy hash of the contents of a file.
 ///
 /// Returns the fuzzy hash of the given file. When an error occurs, it returns
-/// `None`.
+/// [`Error`](enum.Error.html).
 ///
 /// # Examples
 ///
@@ -183,14 +224,17 @@ pub fn hash(buf: &[u8]) -> Option<String> {
 ///
 /// # Panics
 ///
-/// If the path to the file cannot be converted into a string or it contains a
-/// null byte.
+/// * If the path to the file cannot be converted into a string or it contains
+///   a null byte.
+/// * If the function from the underyling C library provides a non-ASCII hash.
+///   This would be a bug in the C library.
 ///
 /// # Implementation details
 ///
 /// Internally, it calls the `fuzzy_hash_filename()` function from the
-/// underlying C library. A non-zero return value is translated into `None`.
-pub fn hash_from_file<P: AsRef<Path>>(file_path: P) -> Option<String> {
+/// underlying C library. A non-zero return value is translated into
+/// [`Error`](enum.Error.html).
+pub fn hash_from_file<P: AsRef<Path>>(file_path: P) -> Result<String> {
     let mut result = create_buffer_for_result();
     let fp = path_as_cstring(file_path);
     let rc = unsafe {
@@ -199,7 +243,7 @@ pub fn hash_from_file<P: AsRef<Path>>(file_path: P) -> Option<String> {
             result.as_mut_ptr() as *mut c_char,
         )
     };
-    result_buffer_to_string(result, rc)
+    result_buffer_to_string("fuzzy_hash_filename", result, rc)
 }
 
 fn path_as_cstring<P: AsRef<Path>>(path: P) -> CString {
@@ -220,10 +264,13 @@ fn create_buffer_for_result() -> Vec<u8> {
     Vec::with_capacity(raw::FUZZY_MAX_RESULT)
 }
 
-fn result_buffer_to_string(mut result: Vec<u8>, rc: i32) -> Option<String> {
+fn result_buffer_to_string(libfuzzy_func: &str, mut result: Vec<u8>, rc: i32) -> Result<String> {
     if rc != 0 {
         // The function from libfuzzy failed, so there is no result.
-        return None;
+        return Err(Error::CFunctionFailed {
+            name: libfuzzy_func.to_string(),
+            return_code: rc,
+        });
     }
 
     // Since the resulting vector that holds the fuzzy hash was populated in
@@ -241,7 +288,8 @@ fn result_buffer_to_string(mut result: Vec<u8>, rc: i32) -> Option<String> {
         result.set_len(len);
     }
 
-    // There should be only ASCII characters in the result, but better be safe
-    // than sorry. If there happens to be anything else, return None.
-    String::from_utf8(result).ok()
+    // The result should only be composed of ASCII characters, i.e. the result
+    // should be convertible to UTF-8. The presence of non-ASCII character
+    // would be a bug in libfuzzy, in which case we panic.
+    Ok(String::from_utf8(result).unwrap())
 }

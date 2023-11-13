@@ -2,6 +2,8 @@
 
 ## dev
 
+* The `hash()`, `hash_from_file()`, and `compare()` functions now return a
+  `Result` instead of `Option`.
 * `compare()` now accepts `&str` instead of `&[u8]` as `hash()` returns
   `String`, not bytes. This simplifies and unifies the library interface.
 

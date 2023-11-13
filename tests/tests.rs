@@ -20,6 +20,7 @@ extern crate ssdeep;
 use ssdeep::compare;
 use ssdeep::hash;
 use ssdeep::hash_from_file;
+use ssdeep::Error;
 
 //
 // compare()
@@ -29,42 +30,48 @@ use ssdeep::hash_from_file;
 fn compare_returns_one_hundred_score_when_hashes_are_equal() {
     let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
     let h2 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
-    assert_eq!(compare(h1, h2), Some(100));
+    assert_eq!(compare(h1, h2), Ok(100));
 }
 
 #[test]
 fn compare_returns_nonzero_score_when_hashes_are_similar() {
     let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
     let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
-    assert_eq!(compare(h1, h2), Some(22));
+    assert_eq!(compare(h1, h2), Ok(22));
 }
 
 #[test]
 fn compare_returns_zero_when_hashes_are_not_similar() {
     let h1 = "3:u+N:u+N";
     let h2 = "3:OWIXTn:OWQ";
-    assert_eq!(compare(h1, h2), Some(0));
+    assert_eq!(compare(h1, h2), Ok(0));
 }
 
 #[test]
-fn compare_returns_none_when_hash_is_invalid() {
+fn compare_returns_error_when_hash_is_invalid() {
     let h1 = "XYZ";
     let h2 = "3:tc:u";
-    assert_eq!(compare(h1, h2), None);
+    assert_eq!(
+        compare(h1, h2),
+        Err(Error::CFunctionFailed {
+            name: "fuzzy_compare".to_string(),
+            return_code: -1,
+        })
+    );
 }
 
 #[test]
 fn compare_accepts_hashes_as_str() {
     let h1 = "3:OWR:OWR";
     let h2 = "3:OWR:OWR";
-    assert_eq!(compare(h1, h2), Some(100));
+    assert_eq!(compare(h1, h2), Ok(100));
 }
 
 #[test]
 fn compare_accepts_hashes_as_string() {
     let h1 = "3:OWR:OWR".to_string();
     let h2 = "3:OWR:OWR".to_string();
-    assert_eq!(compare(&h1, &h2), Some(100));
+    assert_eq!(compare(&h1, &h2), Ok(100));
 }
 
 //
@@ -98,6 +105,6 @@ fn hash_from_file_returns_correct_hash() {
     let h = hash_from_file("tests/file.txt").unwrap();
     assert_eq!(
         h,
-        "48:9MABzSwnjpDeSrLp8+nagE4f3ZMvcDT0MIhqy6Ic:9XMwnjdeSHS+n5ZfScX0MJ7"
+        "48:9MABzSwnjpDeSrLp8+nagE4f3ZMvcDT0MIhqy6Ic:9XMwnjdeSHS+n5ZfScX0MJ7",
     );
 }

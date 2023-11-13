@@ -34,7 +34,7 @@ issue](https://github.com/s3rvac/ssdeep-rs/issues).
 
 ## Usage
 
-To compute the fuzzy hash of given bytes, use the `hash()` function:
+To compute the fuzzy hash of the given bytes, use the `hash()` function:
 ```rust
 extern crate ssdeep;
 
@@ -42,14 +42,13 @@ let h = ssdeep::hash(b"Hello there!").unwrap();
 assert_eq!(h, "3:aNRn:aNRn");
 ```
 
-To obtain the fuzzy hash of a file, use `hash_from_file()`:
+To obtain the fuzzy hash of the contents of a file, use `hash_from_file()`:
 ```rust
 let h = ssdeep::hash_from_file("path/to/file").unwrap();
 ```
 
 To compare two fuzzy hashes, use `compare()`, which returns an integer between
 0 (no match) and 100:
-
 ```rust
 let h1 = "3:AXGBicFlgVNhBGcL6wCrFQEv:AXGHsNhxLsr2C";
 let h2 = "3:AXGBicFlIHBGcL6wCrFQEv:AXGH6xLsr2Cx";
@@ -57,9 +56,9 @@ let score = ssdeep::compare(h1, h2).unwrap();
 assert_eq!(score, 22);
 ```
 
-Each of these functions returns an
-[`Option`](https://doc.rust-lang.org/std/option/enum.Option.html), where `None`
-is returned when the underlying C function fails.
+Each of these functions returns a
+[`Result`](https://doc.rust-lang.org/std/result/enum.Result.html), where an
+error is returned when the underlying C function fails.
 
 ## Documentation
 
