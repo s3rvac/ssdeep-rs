@@ -10,8 +10,9 @@
 * The `hash()`, `hash_from_file()`, and `compare()` functions now return a
   `Result` instead of `Option`
   ([#4](https://github.com/s3rvac/ssdeep-rs/issues/4)).
-* `compare()` now accepts `&str` instead of `&[u8]` as `hash()` returns
-  `String`, not bytes. This simplifies and unifies the library interface.
+* The `compare()` function now accepts `&str` instead of `&[u8]` as `hash()`
+  returns `String`, not bytes. This simplifies and unifies the library
+  interface.
 
 ## 0.4.0 (2023-11-12)
 
