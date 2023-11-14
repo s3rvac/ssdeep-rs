@@ -151,7 +151,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// Internally, it calls the `fuzzy_compare()` function from the underlying C
 /// library. The return value `-1` is translated into
 /// [`Error`](enum.Error.html).
-pub fn compare(hash1: &str, hash2: &str) -> Result<i8> {
+pub fn compare(hash1: &str, hash2: &str) -> Result<u8> {
     let h1 = str_to_cstring(hash1);
     let h2 = str_to_cstring(hash2);
     let score = unsafe {
@@ -166,7 +166,7 @@ pub fn compare(hash1: &str, hash2: &str) -> Result<i8> {
             return_code: -1,
         })
     } else {
-        Ok(score as i8)
+        Ok(score as u8)
     }
 }
 
