@@ -2,6 +2,10 @@
 
 ## dev
 
+* -
+
+## 0.6.0 (2023-11-14)
+
 * The `compare()` function now returns `Result<u8>` instead of `Result<i8>` as
   the return value is always between 0 and 100.
 
