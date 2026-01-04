@@ -14,6 +14,15 @@ hashing algorithms, CTPH can be used to identify files that are highly similar
 but not identical. For more details, see [this blog
 post](https://blog.petrzemek.net/2016/11/01/computing-context-triggered-piecewise-hashes-in-rust/).
 
+> [!IMPORTANT]
+> The author highly suggests using a native Rust implementation instead of this
+> C wrapper. Known options:
+> * [a4lg/ffuzzy](https://github.com/a4lg/ffuzzy)
+> * [rustysec/fuzzyhash-rs](https://github.com/rustysec/fuzzyhash-rs)
+>
+> There was no native Rust implementation when this C wrapper was originally
+> created.
+
 ## Installation
 
 Add the following lines into your `Cargo.toml` file:
