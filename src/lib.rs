@@ -278,6 +278,11 @@ fn result_buffer_to_string(libfuzzy_func: &str, mut result: Vec<u8>, rc: i32) ->
     // point, the vector thinks that its length is zero. We do this by finding
     // the first null byte.
     unsafe {
+        // Resize the vector to the maximum length before fiding the first null
+        // byte because slice::get_unchecked() panics when the index is not
+        // within the slice. The length will be adjusted shortly.
+        result.set_len(raw::FUZZY_MAX_RESULT);
+
         let mut len = 0;
         for i in 0..raw::FUZZY_MAX_RESULT {
             if *result.get_unchecked(i) == 0 {
