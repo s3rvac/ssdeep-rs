@@ -2,7 +2,7 @@
 
 ## dev
 
-* -
+* Explicitly specify the used Rust edition to silence compilation warnings.
 
 ## 0.6.0 (2023-11-14)
 

@@ -6,6 +6,7 @@ description = "Native bindings to the libfuzzy library"
 homepage = "https://github.com/s3rvac/ssdeep-rs"
 repository = "https://github.com/s3rvac/ssdeep-rs"
 license = "GPL-3.0+"
+edition = "2015"
 build = "build.rs"
 links = "libfuzzy"
 
