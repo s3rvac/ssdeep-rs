@@ -188,7 +188,7 @@ pub fn compare(hash1: &str, hash2: &str) -> Result<u8> {
 ///   reason for this is that the corresponding function from the underlying C
 ///   library accepts the length of the input buffer as an unsigned 32b
 ///   integer.
-/// * If the function from the underyling C library provides a non-ASCII hash.
+/// * If the function from the underlying C library provides a non-ASCII hash.
 ///   This would be a bug in the C library.
 ///
 /// # Implementation details
@@ -226,7 +226,7 @@ pub fn hash(buf: &[u8]) -> Result<String> {
 ///
 /// * If the path to the file cannot be converted into a string or it contains
 ///   a null byte.
-/// * If the function from the underyling C library provides a non-ASCII hash.
+/// * If the function from the underlying C library provides a non-ASCII hash.
 ///   This would be a bug in the C library.
 ///
 /// # Implementation details
@@ -278,9 +278,9 @@ fn result_buffer_to_string(libfuzzy_func: &str, mut result: Vec<u8>, rc: i32) ->
     // point, the vector thinks that its length is zero. We do this by finding
     // the first null byte.
     unsafe {
-        // Resize the vector to the maximum length before fiding the first null
-        // byte because slice::get_unchecked() panics when the index is not
-        // within the slice. The length will be adjusted shortly.
+        // Resize the vector to the maximum length before finding the first
+        // null byte because slice::get_unchecked() panics when the index is
+        // not within the slice. The length will be adjusted shortly.
         result.set_len(raw::FUZZY_MAX_RESULT);
 
         let mut len = 0;
