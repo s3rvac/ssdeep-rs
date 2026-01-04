@@ -2,13 +2,13 @@
 
 ## 0.7.0 (2026-01-04)
 
-* Fix a violated precondition in `result_buffer_to_string()` in newer versions
-  of `rustc`:
+* Fixed a violated precondition in `result_buffer_to_string()` in newer
+  versions of `rustc`:
     ```
     unsafe precondition(s) violated: slice::get_unchecked requires that the
     index is within the slice
     ```
-* Explicitly specify the used Rust edition to silence compilation warnings.
+* Explicitly specified the used Rust edition to silence compilation warnings.
 
 ## 0.6.0 (2023-11-14)
 
