@@ -1,6 +1,6 @@
 [package]
 name = "ssdeep"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Petr Zemek <s3rvac@petrzemek.net>"]
 description = "A Rust wrapper for ssdeep"
 homepage = "https://github.com/s3rvac/ssdeep-rs"
@@ -12,4 +12,4 @@ edition = "2015"
 
 [dependencies]
 libc = "0.2"
-libfuzzy-sys = { path = "libfuzzy-sys", version = "0.6.0" }
+libfuzzy-sys = { path = "libfuzzy-sys", version = "0.7.0" }

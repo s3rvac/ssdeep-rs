@@ -1,6 +1,6 @@
 # Changelog
 
-## dev
+## 0.7.0 (2026-01-04)
 
 * Fix a violated precondition in `result_buffer_to_string()` in newer versions
   of `rustc`:

@@ -28,7 +28,7 @@ post](https://blog.petrzemek.net/2016/11/01/computing-context-triggered-piecewis
 Add the following lines into your `Cargo.toml` file:
 ```
 [dependencies]
-ssdeep = "0.6.0"
+ssdeep = "0.7.0"
 ```
 
 Then, when you run `cargo build`, it will automatically get the wrapper's
@@ -74,6 +74,7 @@ error is returned when the underlying C function fails.
 An automatically generated API documentation is available here:
 
 * [latest](https://docs.rs/ssdeep/)
+* [0.7.0](https://docs.rs/ssdeep/0.7.0/ssdeep/)
 * [0.6.0](https://docs.rs/ssdeep/0.6.0/ssdeep/)
 * [0.5.0](https://docs.rs/ssdeep/0.5.0/ssdeep/)
 * [0.4.0](https://docs.rs/ssdeep/0.4.0/ssdeep/)
